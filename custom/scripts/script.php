@@ -27,7 +27,18 @@ $redis->set($lockKey, 1, $lockTimeout);
 
 // Выполнение скрипта
 echo "Скрипт запущен. Выполнение...\n";
+
+// Пример функционала: запись текущего времени в файл
+$filePath = 'execution_log.txt';
+$currentTime = date('Y-m-d H:i:s');
+file_put_contents($filePath, "Скрипт запущен в: $currentTime\n", FILE_APPEND);
+
+// Имитация длительной задачи
 sleep(5);
+
+// Запись завершения в файл
+$currentTime = date('Y-m-d H:i:s');
+file_put_contents($filePath, "Скрипт завершен в: $currentTime\n", FILE_APPEND);
 
 // Удаляем блокировку
 $redis->del($lockKey);
